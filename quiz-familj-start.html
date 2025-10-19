@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adeala – Familjeabonnemang Quiz</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/style.css">
+  <script defer src="assets/quiz.js"></script>
+</head>
+
+<body class="font-[Inter] bg-white text-gray-900">
+  <div id="header-placeholder"></div>
+
+  <main class="max-w-2xl mx-auto py-16 px-6">
+    <form id="quiz-familj" class="bg-gray-100 p-8 rounded-2xl shadow-md space-y-6 text-center">
+
+      <!-- Q1 -->
+      <div>
+        <p class="font-semibold mb-2">Hur många personer i familjen?</p>
+        <select id="familySize" class="w-full p-3 border rounded">
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
+      </div>
+
+      <!-- Q2 -->
+      <div>
+        <p class="font-semibold mb-2">Hur mycket surf behövs per person?</p>
+        <select id="dataNeed" class="w-full p-3 border rounded">
+          <option value="low">Lite (10 GB eller mindre)</option>
+          <option value="medium">Lagom (30 GB)</option>
+          <option value="high">Mycket (Obegränsat)</option>
+        </select>
+      </div>
+
+      <!-- Q3 -->
+      <div>
+        <p class="font-semibold mb-2">Vad är er maxbudget per månad (totalt)?</p>
+        <select id="maxPrice" class="w-full p-3 border rounded">
+          <option value="499">Upp till 500 kr</option>
+          <option value="999">Upp till 1000 kr</option>
+          <option value="1499">Upp till 1500 kr</option>
+          <option value="1999">Upp till 2000 kr</option>
+          <option value="99999">Spelar ingen roll</option>
+        </select>
+      </div>
+
+      <!-- Q4 -->
+      <div>
+        <p class="font-semibold mb-2">Vilken operatör föredrar ni?</p>
+        <select id="operator" class="w-full p-3 border rounded">
+          <option value="">Ingen speciell</option>
+          <option value="Telia">Telia</option>
+          <option value="Tele2">Tele2</option>
+          <option value="Telenor">Telenor</option>
+          <option value="Tre">Tre</option>
+          <option value="Halebop">Halebop</option>
+        </select>
+      </div>
+
+      <!-- ✅ NEW QUESTION -->
+      <div id="numberOption">
+        <p class="font-semibold mb-3">Vill du flytta hit ditt nummer eller skaffa nytt?</p>
+        <div class="flex flex-col gap-3">
+          <button type="button" id="moveNumberBtn"
+            class="bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition">
+            Flytta hit nummer
+          </button>
+          <button type="button" id="newNumberBtn"
+            class="bg-gray-200 text-gray-800 py-3 rounded hover:bg-gray-300 transition">
+            Skaffa nytt nummer
+          </button>
+        </div>
+      </div>
+
+      <!-- Hidden section for entering current number -->
+      <div id="numberInputSection" class="hidden">
+        <p class="font-semibold mb-2">Ange ditt nuvarande telefonnummer</p>
+        <input id="phoneNumber" type="tel" placeholder="0701234567 eller +46701234567"
+          class="w-full p-3 border rounded text-center" />
+        <p id="numberError" class="text-red-600 text-sm mt-1"></p>
+      </div>
+
+      <!-- Hidden section for new number suggestions -->
+      <div id="newNumberSection" class="hidden">
+        <p class="font-semibold mb-3">Välj ett nytt nummer</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <button type="button" class="bg-gray-100 hover:bg-blue-100 border border-gray-300 px-6 py-3 rounded-lg transition">0709876543</button>
+          <button type="button" class="bg-gray-100 hover:bg-blue-100 border border-gray-300 px-6 py-3 rounded-lg transition">0732223344</button>
+          <button type="button" class="bg-gray-100 hover:bg-blue-100 border border-gray-300 px-6 py-3 rounded-lg transition">0768889900</button>
+        </div>
+        <p class="mb-3 text-gray-600">Eller sök efter ledigt nummer:</p>
+        <input id="quizM-search" type="text" placeholder="Sök ledigt nummer..."
+          class="border border-gray-300 rounded-lg px-4 py-3 w-64 text-center focus:ring-2 focus:ring-blue-400 outline-none" />
+        <button id="quizM-searchBtn" type="button"
+          class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition mt-4">
+          Sök
+        </button>
+        <p id="quizM-msg" class="text-green-600 text-sm mt-2"></p>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" id="submitBtn"
+        class="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition hidden">
+        Visa familjeerbjudanden
+      </button>
+    </form>
+  </main>
+
+  <script>
+    const moveBtn = document.getElementById("moveNumberBtn");
+    const newBtn = document.getElementById("newNumberBtn");
+    const inputSection = document.getElementById("numberInputSection");
+    const newSection = document.getElementById("newNumberSection");
+    const phoneInput = document.getElementById("phoneNumber");
+    const errorMsg = document.getElementById("numberError");
+    const submitBtn = document.getElementById("submitBtn");
+
+    // Handle "Flytta hit nummer"
+    moveBtn.addEventListener("click", () => {
+      newSection.classList.add("hidden");
+      inputSection.classList.remove("hidden");
+      submitBtn.classList.remove("hidden");
+    });
+
+    // Handle "Skaffa nytt nummer"
+    newBtn.addEventListener("click", () => {
+      inputSection.classList.add("hidden");
+      newSection.classList.remove("hidden");
+      submitBtn.classList.remove("hidden");
+    });
+
+    // New number quick options
+    [...document.querySelectorAll("#newNumberSection button.bg-gray-100")].forEach(btn => {
+      btn.addEventListener("click", () => {
+        alert(`Numret ${btn.textContent} har valts 🎉`);
+      });
+    });
+
+    // Search custom number
+    document.getElementById("quizM-searchBtn").addEventListener("click", () => {
+      const term = document.getElementById("quizM-search").value.trim();
+      const msg = document.getElementById("quizM-msg");
+      const pattern = /^(07\d{8}|\+467\d{8})$/;
+      if (!pattern.test(term)) {
+        msg.classList.replace("text-green-600", "text-red-600");
+        msg.textContent = "Ange ett giltigt svenskt nummer (07XXXXXXXX eller +467XXXXXXXX).";
+        return;
+      }
+      msg.classList.replace("text-red-600", "text-green-600");
+      msg.textContent = `Numret ${term} är ledigt 🎉`;
+    });
+
+    // Submit
+    document.getElementById("quiz-familj").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      if (!inputSection.classList.contains("hidden")) {
+        const num = phoneInput.value.trim();
+        const pattern = /^(07\d{8}|\+467\d{8})$/;
+        if (!pattern.test(num)) {
+          errorMsg.textContent = "Numret måste vara giltigt (börja med 07 eller +46 följt av 9 siffror).";
+          return;
+        }
+        errorMsg.textContent = "";
+      }
+
+      const results = {
+        category: "familj",
+        familySize: Number(document.getElementById("familySize").value),
+        dataNeed: document.getElementById("dataNeed").value,
+        maxPrice: Number(document.getElementById("maxPrice").value),
+        operators: [document.getElementById("operator").value].filter(Boolean),
+        numberAction: inputSection.classList.contains("hidden") ? "new" : "move",
+        phoneNumber: phoneInput.value || null
+      };
+
+      saveQuizResults(results);
+    });
+  </script>
+
+</body>
+</html>

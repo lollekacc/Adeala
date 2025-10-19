@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adeala – Familjeabonnemang Quiz</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body class="font-[Inter] bg-white text-gray-900">
+  <div id="header-placeholder"></div>
+
+  <!-- Hero -->
+  <section class="h-[40vh] flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-400 text-white text-center">
+    <div>
+      <h1 class="text-5xl font-bold mb-2">Familjeabonnemang</h1>
+      <p class="text-lg opacity-90">Skapa det perfekta abonnemanget för hela familjen</p>
+    </div>
+  </section>
+
+  <!-- Quiz -->
+ <!-- Redirect to Familj start -->
+<script>
+  window.location.href = "quiz-familj-start.html";
+</script>
+
+
+  <script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    // --- Load shared header + chat ---
+    const header = await fetch("partials/header.html").then(res => res.text());
+    document.getElementById("header-placeholder").innerHTML = header;
+
+    const chat = await fetch("partials/chat.html").then(res => res.text());
+    document.body.insertAdjacentHTML("beforeend", chat);
+
+    const script = document.createElement("script");
+    script.src = "assets/scripts.js";
+    script.defer = true;
+    document.body.appendChild(script);
+
+    // --- Familj Quiz Logic ---
+    const steps = [
+      { id: 1, text: "Hur många ska dela på abonnemanget?", answers: ["2", "3", "4", "5", "6"] },
+      { id: 2, text: "Vad är viktigast för er i abonnemanget?", answers: ["Täckning", "Hastighet", "Fritext / Annat"] },
+      { id: 3, text: "Ska ni flytta hit nummer eller skaffa nytt?", answers: ["Flytta hit nummer", "Skaffa nytt nummer"] },
+    ];
+
+    let currentStep = 0;
+    const questionEl = document.getElementById("quiz-question");
+    const answersEl = document.getElementById("quiz-answers");
+    const restartBtn = document.getElementById("restart-btn");
+
+    function renderStep() {
+      const step = steps[currentStep];
+      questionEl.textContent = step.text;
+      answersEl.innerHTML = "";
+
+      step.answers.forEach(ans => {
+        const btn = document.createElement("button");
+        btn.textContent = ans;
+        btn.className = "btn bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition";
+
+        btn.onclick = () => {
+          if (step.id === 3) {
+            if (ans === "Flytta hit nummer") {
+              showMoveNumberInput();
+            } else {
+              showNewNumberOptions();
+            }
+            return;
+          }
+          currentStep++;
+          renderStep();
+        };
+        answersEl.appendChild(btn);
+      });
+      restartBtn.classList.toggle("hidden", currentStep === 0);
+    }
+
+    // --- Flytta hit nummer (user input) ---
+    function showMoveNumberInput() {
+      questionEl.textContent = "Ange ert nuvarande telefonnummer";
+      answersEl.innerHTML = `
+        <input id="userNumber" type="tel" placeholder="0701234567 eller +46701234567"
+          class="border border-gray-300 rounded-lg px-4 py-3 w-64 text-center focus:ring-2 focus:ring-blue-400 outline-none" />
+        <button id="confirmMove" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition mt-4">
+          Bekräfta nummer
+        </button>
+        <p id="errorMsg" class="text-red-600 text-sm mt-2"></p>
+      `;
+
+      document.getElementById("confirmMove").onclick = () => {
+        const num = document.getElementById("userNumber").value.trim();
+        const errorMsg = document.getElementById("errorMsg");
+
+        // Regex: 07XXXXXXXX or +467XXXXXXXX
+        const pattern = /^(07\d{8}|\+467\d{8})$/;
+
+        if (!pattern.test(num)) {
+          errorMsg.textContent =
+            "Numret måste vara 10 siffror och börja med 07, eller +46 följt av 9 siffror (utan mellanslag eller tecken).";
+          return;
+        }
+
+        errorMsg.textContent = "";
+        showOffersPerPerson();
+      };
+    }
+
+    // --- Skaffa nytt nummer (show 3 + search) ---
+    function showNewNumberOptions() {
+      questionEl.textContent = "Välj ett nytt nummer";
+      answersEl.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <button class="bg-gray-100 hover:bg-blue-100 border border-gray-300 px-6 py-3 rounded-lg transition">0701234567</button>
+          <button class="bg-gray-100 hover:bg-blue-100 border border-gray-300 px-6 py-3 rounded-lg transition">0769876543</button>
+          <button class="bg-gray-100 hover:bg-blue-100 border border-gray-300 px-6 py-3 rounded-lg transition">0725551122</button>
+        </div>
+        <p class="mb-3 text-gray-600">Eller sök efter ledigt nummer:</p>
+        <input id="searchNumber" type="text" placeholder="Sök ledigt nummer..."
+          class="border border-gray-300 rounded-lg px-4 py-3 w-64 text-center focus:ring-2 focus:ring-blue-400 outline-none" />
+        <button id="searchBtn" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition mt-4">
+          Sök
+        </button>
+        <p id="searchMsg" class="text-green-600 text-sm mt-2"></p>
+      `;
+
+      // Predefined number click
+      [...answersEl.querySelectorAll("button.bg-gray-100")].forEach(btn => {
+        btn.onclick = () => showOffersPerPerson();
+      });
+
+      // Search input validation
+      document.getElementById("searchBtn").onclick = () => {
+        const term = document.getElementById("searchNumber").value.trim();
+        const msg = document.getElementById("searchMsg");
+        const pattern = /^(07\d{8}|\+467\d{8})$/;
+
+        if (!pattern.test(term)) {
+          msg.classList.replace("text-green-600", "text-red-600");
+          msg.textContent = "Ange ett giltigt svenskt nummer (07XXXXXXXX eller +467XXXXXXXX).";
+          return;
+        }
+
+        msg.classList.replace("text-red-600", "text-green-600");
+        msg.textContent = `Numret ${term} är ledigt 🎉`;
+        setTimeout(showOffersPerPerson, 1000);
+      };
+    }
+
+    // --- Offers per person ---
+    function showOffersPerPerson() {
+      questionEl.textContent = "Offer med pris per person";
+      answersEl.innerHTML = `
+        <p class="text-lg mb-6 text-gray-700">Här visas familjeerbjudanden baserade på era val:</p>
+        <a href="erbjudande.html" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">Visa erbjudanden</a>
+      `;
+      setTimeout(() => {
+        const link = document.createElement("a");
+        link.href = "signera.html";
+        link.textContent = "Fortsätt till signering";
+        link.className = "block mt-6 text-blue-600 font-semibold hover:underline";
+        answersEl.appendChild(link);
+      }, 800);
+    }
+
+    function startQuiz(reset = false) {
+      if (reset) currentStep = 0;
+      renderStep();
+    }
+
+    restartBtn.addEventListener("click", () => startQuiz(true));
+    startQuiz();
+  });
+  </script>
+  <script>
+window.addEventListener("load", async () => {
+  const footerHTML = await fetch("partials/footer.html").then(r => r.text());
+  document.body.insertAdjacentHTML("beforeend", footerHTML);
+});
+</script>
+
+</body>
+</html>

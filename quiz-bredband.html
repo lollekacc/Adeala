@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adeala – 5G Bredband</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body class="font-[Inter] bg-white text-gray-900">
+  <div id="header-placeholder"></div>
+
+  <section class="h-[40vh] flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-400 text-white text-center">
+    <div>
+      <h1 class="text-5xl font-bold mb-2">5G Bredband</h1>
+      <p class="text-lg opacity-90">Snabbt, stabilt och framtidssäkert internet</p>
+    </div>
+  </section>
+
+  <main class="max-w-5xl mx-auto py-16 px-6 text-center">
+    <h2 class="text-3xl font-semibold mb-6">Ditt bredbandsquiz</h2>
+    <p class="text-gray-700">Här kommer quiz och bredbandsinformation snart.</p>
+  </main>
+
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  // --- Load shared header ---
+  const header = await fetch("partials/header.html").then(res => res.text());
+  document.getElementById("header-placeholder").innerHTML = header;
+
+  // --- Load AI chat (after header) ---
+  const chat = await fetch("partials/chat.html").then(res => res.text());
+  document.body.insertAdjacentHTML("beforeend", chat);
+
+  // --- Load main site logic (after chat) ---
+  const script = document.createElement("script");
+  script.src = "assets/scripts.js";
+  script.defer = true; // ✅ ensures smooth, non-blocking load
+  document.body.appendChild(script);
+});
+</script>
+<script>
+window.addEventListener("load", async () => {
+  const footerHTML = await fetch("partials/footer.html").then(r => r.text());
+  document.body.insertAdjacentHTML("beforeend", footerHTML);
+});
+</script>
+
+</body>
+</html>

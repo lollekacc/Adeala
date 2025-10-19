@@ -1,0 +1,118 @@
+<div id="chatBox" class="chat-box">
+  <div id="chatHeader">
+    <div class="title">💬 Adeala AI</div>
+    <button class="minimize-btn">−</button>
+  </div>
+
+  <div id="chatBody" class="chat-body">
+    <div class="bot-message">
+      <p><strong>Hej!</strong> Jag är <b>Adealas AI-assistent 🤖</b>.<br>Skriv vad du letar efter!</p>
+    </div>
+  </div>
+
+  <div id="chatFooter" class="chat-footer">
+    <input id="freeSearch" type="text" placeholder="Skriv ett meddelande..." />
+    <button id="chatSend"><i class="fas fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<style>
+/* === AI CHAT STYLES === */
+.chat-box {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 340px;
+  background: linear-gradient(145deg, #ffffff, #eef2ff);
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+}
+
+#chatHeader {
+  background: linear-gradient(to right, #0078ff, #00c6ff);
+  color: white;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+.minimize-btn {
+  border: none;
+  background: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.chat-body {
+  height: 320px;
+  overflow-y: auto;
+  padding: 15px;
+  background: #f9faff;
+  scroll-behavior: smooth;
+}
+
+.bot-message, .user-message {
+  display: flex;
+  margin: 8px 0;
+}
+
+.bot-message p, .user-message p {
+  padding: 10px 14px;
+  border-radius: 18px;
+  max-width: 75%;
+  word-wrap: break-word;
+  line-height: 1.4;
+}
+
+.bot-message p {
+  background: #e6edff;
+  color: #222;
+  border-bottom-left-radius: 4px;
+}
+
+.user-message {
+  justify-content: flex-end;
+}
+
+.user-message p {
+  background: #0078ff;
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-footer {
+  display: flex;
+  border-top: 1px solid #e5e9f2;
+}
+
+.chat-footer input {
+  flex: 1;
+  border: none;
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 0 0 0 18px;
+  outline: none;
+}
+
+.chat-footer button {
+  background: #0078ff;
+  color: white;
+  border: none;
+  padding: 0 16px;
+  font-size: 18px;
+  border-radius: 0 0 18px 0;
+  cursor: pointer;
+}
+
+.chat-footer button:hover {
+  background: #005fcc;
+}
+</style>

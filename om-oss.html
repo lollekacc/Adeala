@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adeala – Om oss</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body class="font-[Inter] bg-white text-gray-900">
+  <div id="header-placeholder"></div>
+
+  <!-- Hero -->
+  <section class="h-[40vh] flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-400 text-white text-center">
+    <div>
+      <h1 class="text-5xl font-bold mb-2">Om Adeala</h1>
+      <p class="text-lg opacity-90">Vi förenklar valet av abonnemang i Sverige</p>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main class="max-w-5xl mx-auto py-16 px-6 text-center">
+    <h2 class="text-3xl font-bold text-blue-600 mb-6">Vårt uppdrag</h2>
+    <p class="text-gray-700 leading-relaxed mb-10">
+      Adeala grundades 2024 med en enkel idé – att göra det lättare för svenskar att hitta rätt mobil- och bredbandsabonnemang.
+      Genom att jämföra erbjudanden från landets ledande operatörer som Tele2, Telia, Telenor, Tre och Halebop, hjälper vi dig 
+      att hitta det bästa alternativet utifrån pris, täckning och behov.
+    </p>
+
+    <p class="text-gray-700 leading-relaxed mb-10">
+      Vi arbetar oberoende, vilket betyder att våra rekommendationer alltid baseras på fakta – inte samarbeten. 
+      Vårt mål är att du som kund ska känna trygghet, transparens och spara både tid och pengar när du väljer abonnemang.
+    </p>
+
+    <!-- Values -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 my-16">
+      <div class="p-6 border rounded-xl shadow hover:shadow-md transition">
+        <i class="fas fa-bullseye text-blue-600 text-3xl mb-3"></i>
+        <h3 class="text-xl font-semibold mb-2">Tydlighet</h3>
+        <p class="text-gray-600 text-sm">Vi strävar efter enkelhet i allt – från hur vi presenterar information till hur du hittar rätt abonnemang.</p>
+      </div>
+
+      <div class="p-6 border rounded-xl shadow hover:shadow-md transition">
+        <i class="fas fa-heart text-blue-600 text-3xl mb-3"></i>
+        <h3 class="text-xl font-semibold mb-2">Transparens</h3>
+        <p class="text-gray-600 text-sm">Alla våra jämförelser bygger på öppna källor och objektiva kriterier – utan dolda avgifter.</p>
+      </div>
+
+      <div class="p-6 border rounded-xl shadow hover:shadow-md transition">
+        <i class="fas fa-users text-blue-600 text-3xl mb-3"></i>
+        <h3 class="text-xl font-semibold mb-2">Gemenskap</h3>
+        <p class="text-gray-600 text-sm">Vi tror på långsiktiga relationer – både med kunder och våra samarbetspartners.</p>
+      </div>
+    </div>
+
+    <!-- Team Section -->
+    <h2 class="text-3xl font-bold text-blue-600 mb-6">Teamet bakom Adeala</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-10">
+      <div>
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Grundare" class="rounded-full mx-auto h-32 w-32 mb-4 shadow-md">
+        <h3 class="text-lg font-semibold">Andreas Holm</h3>
+        <p class="text-gray-600 text-sm">Grundare & VD</p>
+      </div>
+      <div>
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Marknadschef" class="rounded-full mx-auto h-32 w-32 mb-4 shadow-md">
+        <h3 class="text-lg font-semibold">Elin Persson</h3>
+        <p class="text-gray-600 text-sm">Marknadschef</p>
+      </div>
+      <div>
+        <img src="https://randomuser.me/api/portraits/men/61.jpg" alt="Teknisk ledare" class="rounded-full mx-auto h-32 w-32 mb-4 shadow-md">
+        <h3 class="text-lg font-semibold">Leo Andersson</h3>
+        <p class="text-gray-600 text-sm">Teknisk ledare</p>
+      </div>
+    </div>
+
+    <p class="text-gray-600 mt-16 text-sm">
+      © 2025 Adeala AB – Alla rättigheter förbehållna.
+    </p>
+  </main>
+
+  <!-- Scripts -->
+<script>
+window.addEventListener("load", async () => {
+  try {
+    // Load header
+    const headerHTML = await fetch("partials/header.html").then(r => r.text());
+    document.getElementById("header-placeholder").innerHTML = headerHTML;
+
+    // Load chat
+    const chatHTML = await fetch("partials/chat.html").then(r => r.text());
+    document.body.insertAdjacentHTML("beforeend", chatHTML);
+
+    // Wait for chat to be in DOM before running scripts.js
+    const checkChatLoaded = setInterval(() => {
+      if (document.getElementById("chatSend")) {
+        clearInterval(checkChatLoaded);
+        const script = document.createElement("script");
+        script.src = "assets/scripts.js";
+        document.body.appendChild(script);
+      }
+    }, 200);
+  } catch (err) {
+    console.error("Fel vid laddning av header/chat:", err);
+  }
+});
+</script>
+
+<script>
+window.addEventListener("load", async () => {
+  const footerHTML = await fetch("partials/footer.html").then(r => r.text());
+  document.body.insertAdjacentHTML("beforeend", footerHTML);
+});
+</script>
+
+
+</body>
+</html>

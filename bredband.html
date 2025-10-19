@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adeala – Bredband</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <script defer src="assets/scripts.js"></script>
+</head>
+
+<body class="font-[Inter] bg-[#f8f9ff] text-gray-900">
+   <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Hero Section -->
+  <section class="hero bredband-hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">Bredband för hemmet</h1>
+        <ul class="hero-list">
+          <li>• Från <strong>399 kr i månaden</strong> med 36 mån delbetalning av router</li>
+          <li>• Över <strong>100 000 kunder</strong> har upplevt vårt bredband utan bindningstid</li>
+          <li>• Få <strong>100 kr/mån i rabatt</strong> när du samlar mobilabonnemang och bredband</li>
+        </ul>
+        <a href="erbjudande.html" class="btn-primary">Visa erbjudanden</a>
+      </div>
+
+      <div class="hero-image">
+        <img src="https://media.istockphoto.com/id/691430076/photo/wi-fi-wireless-internet-router-on-dark-background.jpg?s=612x612&w=0&k=20&c=gX4k36hW_kPwPGX5BNmqzygBsc9KLBJKf-O7S8CeHs4="
+          alt="Router" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Search Section -->
+  <section class="address-search-section">
+    <div class="address-search-box">
+      <h2 class="section-title">Sök på din adress och se vilken täckning du kan få</h2>
+      <div class="address-form">
+        <input
+          id="addressInput"
+          type="text"
+          placeholder="ex, Storgatan 3, Stockholm"
+          class="input-address"
+        />
+        <button id="searchBtn" class="btn-primary small">Sök</button>
+      </div>
+      <p id="searchMsg" class="text-center mt-3 text-gray-700"></p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+
+  <script>
+    // Address coverage simulation
+    document.getElementById("searchBtn").addEventListener("click", () => {
+      const address = document.getElementById("addressInput").value.trim();
+      const msg = document.getElementById("searchMsg");
+      if (!address) {
+        msg.textContent = "⚠️ Ange en giltig adress för att söka täckning.";
+        msg.className = "text-red-600 mt-3 text-center";
+        return;
+        
+      }
+
+      const suggestions = [
+        "Telia fiber finns tillgängligt ✅",
+        "Tele2 bredband finns här 🚀",
+        "Telenor erbjuder hög hastighet på din adress 🌐"
+      ];
+      const random = suggestions[Math.floor(Math.random() * suggestions.length)];
+
+      msg.className = "text-green-600 mt-3 text-center font-medium";
+      msg.textContent = `✅ ${random} (${address})`;
+    });
+    
+  </script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adeala – Välkommen</title>
+
+  <!-- Tailwind + Fonts + Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body class="min-h-screen font-[Inter] bg-white text-gray-900">
+
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Partner Bar -->
+  <section class="border-b border-blue-1 bg-blue-50 text-white py-5 px-1">
+    <div class="flex items-center justify-start gap-5">
+      <p class="uppercase tracking-wide text-blue-500 text-sm font-semibold whitespace-nowrap">I SAMARBETE MED</p>
+      <div class="flex flex-wrap items-center gap-20">
+        <img src="https://mb.cision.com/Public/3372/4130715/b9f707e6cee5920c_org.jpg" class="h-20" alt="Tele2">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Telia.svg/1200px-Telia.svg.png" class="h-20" alt="Telia">
+        <img src="https://images.ctfassets.net/d48yc3frismn/2alkLOowwaSm0LJYWChQtC/0c972d418d07c5e003fa9af900385d6b/open_graph_telenor_foretag_1200x628.jpg" class="h-20" alt="Telenor">
+        <img src="https://www.mobiltelefoni.se/cms2/wp-content/uploads/2018/09/tre-logo-1024x600.jpg" class="h-20" alt="Tre">
+        <img src="https://mobilt-bredband.net/wp-content/uploads/2025/03/unnamed.png" class="h-20" alt="Halebop">
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-b from-blue-100 to-white text-center text-white pt-10 pb-40 px-2">
+    <h3 class="text-5xl text-blue-500 font-bold text-blue-700"></h3>
+  
+
+    <div class="flex flex-wrap justify-center gap-4">
+      <!-- Mobil -->
+      <button 
+        onclick="scrollToSection('quiz-mobil')" 
+        class="w-[38rem] h-[40rem] rounded-[3.5rem] flex items-center justify-center text-5xl font-semibold text-white 
+               bg-[url('https://www.shutterstock.com/shutterstock/videos/1086430241/thumb/1.jpg?ip=x480')] 
+               bg-cover bg-center hover:scale-105 hover:shadow-2xl transition transform duration-300 relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/40 hover:bg-black/30 transition"></div>
+        <span class="relative z-10">Mobil</span>
+      </button>
+
+      <!-- Familj -->
+      <button 
+        onclick="scrollToSection('quiz-familj')" 
+        class="w-[38rem] h-[40rem] rounded-[3.5rem] flex items-center justify-center text-5xl font-semibold text-white 
+               bg-[url('https://pennbroadband.com/wp-content/uploads/2024/12/pbb-plans-family-1-1536x923.jpg')] 
+               bg-cover bg-center hover:scale-105 hover:shadow-2xl transition transform duration-300 relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/40 hover:bg-black/30 transition"></div>
+        <span class="relative z-10">Familj</span>
+      </button>
+
+      <!-- 5G Bredband -->
+      <button 
+        onclick="scrollToSection('quiz-bredband')" 
+        class="w-[38rem] h-[40rem] rounded-[3.5rem] flex flex-col items-center justify-center text-5xl font-semibold text-white 
+               bg-[url('https://img.choice.com.au/-/media/1d5e53551ade436fa795c8e2ce440f72.ashx')] 
+               bg-cover bg-center hover:scale-105 hover:shadow-2xl transition transform duration-300 relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/40 hover:bg-black/30 transition"></div>
+        <span class="relative z-10 text-center">5G<br>Bredband</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- QUIZ SECTIONS -->
+  <section id="quiz-mobil" class="hidden h-[100vh] flex items-center justify-center bg-white">
+    <h2 class="text-4xl font-semibold text-blue-700">Mobil – Quiz kommer här</h2>
+  </section>
+
+  <section id="quiz-familj" class="hidden h-[100vh] flex items-center justify-center bg-white">
+    <h2 class="text-4xl font-semibold text-blue-700">Familj – Quiz kommer här</h2>
+  </section>
+
+  <section id="quiz-bredband" class="hidden h-[100vh] flex items-center justify-center bg-white">
+    <h2 class="text-4xl font-semibold text-blue-700">5G Bredband – Quiz kommer här</h2>
+  </section>
+<!-- Scroll Ad Section -->
+<section class="scroll-ads">
+  <div class="ad-container fade-in">
+    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900" alt="Mobilabonnemang" class="ad-image">
+    <div class="ad-text">
+      <span class="ad-tag">Nyhet!</span>
+      <h2>Frihet med obegränsad surf</h2>
+      <p>Utforska våra senaste abonnemang med obegränsad data och exklusiva förmåner. Enkla att teckna, smidiga att använda – frihet i din ficka.</p>
+      <a href="quiz-mobil.html" class="ad-btn">Se erbjudanden</a>
+    </div>
+  </div>
+
+  <div class="ad-container fade-in">
+    <div class="ad-text">
+      <span class="ad-tag">5G överallt</span>
+      <h2>Snabbare nät – hela Sverige täcks</h2>
+      <p>Upplev Sveriges bästa 5G-nät med upp till 99,9 % täckning. Strömma, jobba och spela var du än är.</p>
+      <a href="bredband.html" class="ad-btn">Kolla 5G-täckning</a>
+    </div>
+    <img src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?w=900" alt="5G-nät" class="ad-image">
+  </div>
+</section>
+
+  <!-- Load Header -->
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  // --- Load shared header ---
+  const header = await fetch("partials/header.html").then(res => res.text());
+  document.getElementById("header-placeholder").innerHTML = header;
+
+  // --- Load AI chat globally ---
+  const chat = await fetch("partials/chat.html").then(res => res.text());
+  document.body.insertAdjacentHTML("beforeend", chat);
+
+  // --- Load main script ---
+  const script = document.createElement("script");
+  script.src = "assets/scripts.js";
+  script.defer = true;
+  document.body.appendChild(script);
+});
+
+// --- Smooth dynamic loading + inline script execution ---
+async function scrollToSection(id) {
+  // Hide all quiz sections
+  document.querySelectorAll("#quiz-mobil, #quiz-familj, #quiz-bredband").forEach(sec => {
+    sec.classList.add("hidden");
+    sec.innerHTML = "";
+  });
+
+  const quizFiles = {
+    "quiz-mobil": "quiz-mobil-start.html",
+    "quiz-familj": "quiz-familj-start.html",
+    "quiz-bredband": "quiz-bredband.html"
+  };
+
+  const section = document.getElementById(id);
+  const file = quizFiles[id];
+
+  try {
+    const response = await fetch(file);
+    if (!response.ok) throw new Error(`404: ${file} hittades inte`);
+    const html = await response.text();
+
+    // Inject loaded content
+    section.innerHTML = html;
+    section.classList.remove("hidden");
+
+    // Run inline scripts from loaded quiz
+    const scripts = section.querySelectorAll("script");
+    scripts.forEach(oldScript => {
+      const newScript = document.createElement("script");
+      if (oldScript.src) newScript.src = oldScript.src;
+      else newScript.textContent = oldScript.textContent;
+      document.body.appendChild(newScript);
+    });
+
+    // Smooth scroll to loaded quiz section
+    section.scrollIntoView({ behavior: "smooth" });
+  } catch (err) {
+    console.error("Fel vid laddning:", err);
+    section.innerHTML = `<p class="text-red-600 text-xl mt-10">Kunde inte ladda ${file}</p>`;
+    section.classList.remove("hidden");
+  }
+}
+</script>
+<script>
+const faders = document.querySelectorAll('.fade-in');
+const appearOptions = { threshold: 0.2 };
+
+const appearOnScroll = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('visible');
+    observer.unobserve(entry.target);
+  });
+}, appearOptions);
+
+faders.forEach(fader => appearOnScroll.observe(fader));
+</script>
+
+<script>
+window.addEventListener("load", async () => {
+  const footerHTML = await fetch("partials/footer.html").then(r => r.text());
+  document.body.insertAdjacentHTML("beforeend", footerHTML);
+});
+</script>
+
+</body>
+</html>
